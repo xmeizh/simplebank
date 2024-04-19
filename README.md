@@ -2,6 +2,10 @@
 - golang-migrate
 - [SQLC](https://sqlc.dev/)
 
+# Golang Dependencies
+- [pq](https://github.com/lib/pq)
+- [testify](https://github.com/stretchr/testify)
+
 # Usage
 
 # Notes
