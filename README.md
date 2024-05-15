@@ -8,6 +8,11 @@ This application is built during this [Backend Master Class Course.](https://www
 - [DBDiagram](https://www.dbdiagram.io/d/Simple-bank-66221b7303593b6b6167e52a)
 
 ### Usage
+#### Initialize DB
+```bash
+$ make initdb
+```
+
 #### Migrate DB Schema
 Migrate to an older/newer version:
 ```bash
@@ -17,4 +22,9 @@ $ make [migratedown|migrateup]
 #### Run Server
 ```bash
 $ make server
+```
+
+#### Run Test
+```bash
+$ make test
 ```

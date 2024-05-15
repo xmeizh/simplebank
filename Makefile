@@ -7,7 +7,7 @@ createdb:
 psql:
 	docker exec -it postgres12 psql -U root -d simple_bank
 
-initdb: postgres12 createdb migrateup
+initdb: postgres12 sleep-2 createdb migrateup
 
 dropdb:
 	docker exec -it postgres12 dropdb simple_bank
@@ -26,5 +26,8 @@ server:
 
 test:
 	go test -v -cover ./...
+
+sleep-%:
+	sleep $(@:sleep-%=%)
 
 .PHONY: postgres12 createdb dropdb migrateup migratedown sqlc psql server
