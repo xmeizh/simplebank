@@ -27,7 +27,10 @@ server:
 test:
 	go test -v -cover ./...
 
+mock:
+	mockgen -package mockdb -destination db/mock/store.go github.com/xmeizh/simplebank/db/postgresql Store
+
 sleep-%:
 	sleep $(@:sleep-%=%)
 
-.PHONY: postgres12 createdb dropdb migrateup migratedown sqlc psql server
+.PHONY: postgres12 createdb dropdb migrateup migratedown sqlc psql server mock
