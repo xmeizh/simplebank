@@ -17,7 +17,7 @@ $ make initdb
 #### Migrate DB Schema
 Migrate to an older/newer version:
 ```bash
-$ make [migratedown|migrateup]
+$ make [migratedown1|migrateup1]
 ```
 
 #### Run Server
