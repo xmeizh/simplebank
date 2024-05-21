@@ -18,7 +18,7 @@ type createUserRequest struct {
 	Email    string `json:"email" binding:"required,email"`
 }
 
-type createUserResponse struct {
+type userResponse struct {
 	Username          string    `json:"username"`
 	FullName          string    `json:"full_name"`
 	Email             string    `json:"email"`
@@ -61,7 +61,7 @@ func (server *Server) createUser(ctx *gin.Context) {
 		return
 	}
 
-	rsp := createUserResponse{
+	rsp := userResponse{
 		Username:          user.Username,
 		FullName:          user.FullName,
 		Email:             user.Email,
