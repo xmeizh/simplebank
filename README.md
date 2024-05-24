@@ -28,3 +28,6 @@ $ make test
 - [sqlc](https://sqlc.dev/)
 - [DBDiagram](https://www.dbdiagram.io/d/Simple-bank-66221b7303593b6b6167e52a)
 - [gomock](https://github.com/golang/mock?tab=readme-ov-file)
+
+## Documentation
+* [Configuring OpenID Connect in AWS](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services)
