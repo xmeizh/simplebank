@@ -2,32 +2,22 @@
 This application is built during this [Backend Master Class Course.](https://www.udemy.com/course/backend-master-class-golang-postgresql-kubernetes/)
 
 ## Usage
-### Initialize DB
+### Run the application on a local machine:
 ```bash
-$ make initdb
+$ docker compose up
 ```
 
-### Migrate DB Schema
-Migrate to an older/newer version:
-```bash
-$ make [migratedown1|migrateup1]
-```
-
-### Run Server
-```bash
-$ make server
-```
-
-### Run Test
+### Run the unit tests:
 ```bash
 $ make test
 ```
 
 ## Tools
-- [golang-migrate](https://github.com/golang-migrate/migrate)
-- [sqlc](https://sqlc.dev/)
-- [DBDiagram](https://www.dbdiagram.io/d/Simple-bank-66221b7303593b6b6167e52a)
-- [gomock](https://github.com/golang/mock?tab=readme-ov-file)
+- [golang-migrate:](https://github.com/golang-migrate/migrate) helps migrate database schemata.
+- [sqlc:](https://sqlc.dev/) generates sql codes in Go.
+- [DBDiagram:](https://www.dbdiagram.io/d/Simple-bank-66221b7303593b6b6167e52a) is a great tool to draw a database schema and export it as a sql query.
+- [gomock:](https://github.com/golang/mock?tab=readme-ov-file) is used for mock tests.
+- [cert-manager:](https://cert-manager.io/) renews TLS certificates.
 
-# Documentation
+## Documentation
 * [Configuring OpenID Connect in AWS](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services)
