@@ -18,6 +18,8 @@ $ make test
 - [DBDiagram:](https://www.dbdiagram.io/d/Simple-bank-66221b7303593b6b6167e52a) is a great tool to draw a database schema and export it as a sql query.
 - [gomock:](https://github.com/golang/mock?tab=readme-ov-file) is used for mock tests.
 - [cert-manager:](https://cert-manager.io/) renews TLS certificates.
+- [dbdocs](https://dbdocs.io/docs)
+- [DBML CLI](https://dbml.dbdiagram.io/cli)
 
 ## Documentation
 * [Configuring OpenID Connect in AWS](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services)
