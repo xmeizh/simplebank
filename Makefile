@@ -1,4 +1,9 @@
-postgres12:
+DB_SOURCE=postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable
+
+network: 
+	docker network create bank-network
+
+postgres:
 	docker run --name postgres12 --network bank-network -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:12-alpine
 
 createdb:
@@ -13,16 +18,16 @@ dropdb:
 	docker exec -it postgres12 dropdb simple_bank
 
 migrateup:
-	migrate -path db/migration -database "postgresql://root:secret@127.0.0.1:5432/simple_bank?sslmode=disable" -verbose up
+	migrate -path db/migration -database "$(DB_SOURCE)" -verbose up
 
 migrateup1:
-	migrate -path db/migration -database "postgresql://root:secret@127.0.0.1:5432/simple_bank?sslmode=disable" -verbose up 1
+	migrate -path db/migration -database "$(DB_SOURCE)" -verbose up 1
 
 migratedown:
-	migrate -path db/migration -database "postgresql://root:secret@127.0.0.1:5432/simple_bank?sslmode=disable" -verbose down
+	migrate -path db/migration -database "$(DB_SOURCE)" -verbose down
 
 migratedown1:
-	migrate -path db/migration -database "postgresql://root:secret@127.0.0.1:5432/simple_bank?sslmode=disable" -verbose down 1
+	migrate -path db/migration -database "$(DB_SOURCE)" -verbose down 1
 
 sqlc:
 	sqlc generate
@@ -39,4 +44,10 @@ mock:
 sleep-%:
 	sleep $(@:sleep-%=%)
 
-.PHONY: postgres12 createdb dropdb migrateup migratedown migratedown1 migrateup1 sqlc psql server mock 
+db_docs:
+	dbdocs build doc/db.dbml
+
+db_schema:
+	dbml2sql --postgres -o doc/schema.sql doc/db.dbml  
+
+.PHONY: postgres createdb dropdb migrateup migratedown migratedown1 migrateup1 sqlc psql server network mock db_docs db_schema
