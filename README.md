@@ -20,6 +20,8 @@ $ make test
 - [cert-manager:](https://cert-manager.io/) renews TLS certificates.
 - [dbdocs](https://dbdocs.io/docs)
 - [DBML CLI](https://dbml.dbdiagram.io/cli)
+- [gRPC](https://grpc.io/docs/languages/go/quickstart/)
+- [gRPC Client](https://github.com/ktr0731/evans)
 
 ## Documentation
 * [Configuring OpenID Connect in AWS](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services)
