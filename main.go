@@ -10,8 +10,10 @@ import (
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	_ "github.com/lib/pq" // Without this package our server cannot connect to the db
+	"github.com/rakyll/statik/fs"
 	"github.com/xmeizh/simplebank/api"
 	db "github.com/xmeizh/simplebank/db/postgresql"
+	_ "github.com/xmeizh/simplebank/doc/statik"
 	"github.com/xmeizh/simplebank/gapi"
 	"github.com/xmeizh/simplebank/pb"
 	"github.com/xmeizh/simplebank/util"
@@ -99,8 +101,13 @@ func runGatewayServer(config util.Config, store db.Store) {
 	mux := http.NewServeMux()
 	mux.Handle("/", gwmux)
 
-	fs := http.FileServer(http.Dir("./doc/swagger"))
-	mux.Handle("/swagger/", http.StripPrefix("/swagger/", fs))
+	statikFS, err := fs.New()
+	if err != nil {
+		log.Fatalf("cannot create statik fs: %v", err)
+	}
+
+	swaggerHandler := http.StripPrefix("/swagger/", http.FileServer(statikFS))
+	mux.Handle("/swagger/", swaggerHandler)
 
 	lis, err := net.Listen("tcp", config.HTTPServerAddress)
 	if err != nil {
