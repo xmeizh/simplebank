@@ -63,4 +63,7 @@ proto:
 evans:
 	evans --port 9090 -r repl --package pb --service SimpleBank
 
-.PHONY: postgres createdb dropdb migrateup migratedown migratedown1 migrateup1 sqlc psql server network mock db_docs db_schema proto evans
+redis:
+	docker run --name redis -p 6379:6379 -d redis:7-alpine
+
+.PHONY: postgres createdb dropdb migrateup migratedown migratedown1 migrateup1 sqlc psql server network mock db_docs db_schema proto evans redis
