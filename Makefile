@@ -17,6 +17,9 @@ initdb: postgres sleep-2 createdb migrateup
 dropdb:
 	docker exec -it postgres dropdb simple_bank
 
+create_db_migration:
+	migrate create -ext sql -dir db/migration -seq $(name)
+
 migrateup:
 	migrate -path db/migration -database "$(DB_SOURCE)" -verbose up
 
@@ -36,7 +39,7 @@ server:
 	go run main.go
 
 test:
-	go test -v -cover ./...
+	go test -v -cover -short ./...
 
 mock:
 	mockgen -package mockdb -destination db/mock/store.go github.com/xmeizh/simplebank/db/postgresql Store
@@ -66,4 +69,4 @@ evans:
 redis:
 	docker run --name redis -p 6379:6379 -d redis:7-alpine
 
-.PHONY: postgres createdb dropdb migrateup migratedown migratedown1 migrateup1 sqlc psql server network mock db_docs db_schema proto evans redis
+.PHONY: postgres createdb dropdb migrateup migratedown migratedown1 migrateup1 sqlc psql server network mock db_docs db_schema proto evans redis create_db_migration
