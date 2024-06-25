@@ -73,7 +73,11 @@ func (processor *RedisTaskProcessor) ProcessTaskSendVerificationEmail(ctx contex
 	Please <a href="%s">click here</a> to verify your email address.<br/>
 	`, user.FullName, verifyUrl)
 	to := []string{user.Email}
-	processor.mailSender.SendEmail(subject, content, to, nil, nil, nil)
+	err = processor.mailSender.SendEmail(subject, content, to, nil, nil, nil)
+
+	if err != nil {
+		return fmt.Errorf("failed to send verification email: %w", err)
+	}
 
 	log.Info().Str("type", task.Type()).Bytes("payload", task.Payload()).
 		Str("email", user.Email).Msg("processed task")
