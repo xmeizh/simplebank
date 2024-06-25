@@ -1,6 +1,8 @@
 services:
   postgres:
     image: postgres:16-alpine
+    volumes:
+      - db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=secret
@@ -12,15 +14,25 @@ services:
       retries: 3
       start_period: 40s
       start_interval: 5s
+    ports:
+      - 5432:5432
+  redis:
+    image: redis:7-alpine
   api:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+      - "9090:9090"
     environment:
       - DB_SOURCE=postgresql://root:secret@postgres:5432/simple_bank?sslmode=disable
+      - REDIS_ADDRESS=redis:6379
     depends_on:
       postgres:
         condition: service_healthy
         restart: true
+      redis:
+        condition: service_started
+volumes:
+  db-data:
