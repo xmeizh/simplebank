@@ -57,6 +57,7 @@ func TestUpdateUserAPI(t *testing.T) {
 
 				expectedUser := db.User{
 					Username:        user.Username,
+					Role:            user.Role,
 					FullName:        newFullName,
 					Email:           newEmail,
 					CreatedAt:       user.CreatedAt,
@@ -66,7 +67,7 @@ func TestUpdateUserAPI(t *testing.T) {
 				store.EXPECT().UpdateUser(gomock.Any(), EqUpdateUserParams(arg, newPassword)).Times(1).Return(expectedUser, nil)
 			},
 			buildContext: func(t *testing.T, tokenMaker token.Maker) context.Context {
-				token, _, err := tokenMaker.CreateToken(user.Username, time.Minute)
+				token, _, err := tokenMaker.CreateToken(user.Username, user.Role, time.Minute)
 				require.NoError(t, err)
 				bearerToken := fmt.Sprintf("%s %s", authorizationTypeBearer, token)
 				md := metadata.MD{
@@ -94,7 +95,7 @@ func TestUpdateUserAPI(t *testing.T) {
 				Email:    &newEmail,
 			},
 			buildContext: func(t *testing.T, tokenMaker token.Maker) context.Context {
-				return newContextWithBearerToken(t, tokenMaker, user.Username, time.Minute)
+				return newContextWithBearerToken(t, tokenMaker, user.Username, user.Role, time.Minute)
 			},
 			buildStubs: func(store *mockdb.MockStore) {
 				store.EXPECT().UpdateUser(gomock.Any(), gomock.Any()).Times(1).Return(db.User{}, sql.ErrNoRows)
